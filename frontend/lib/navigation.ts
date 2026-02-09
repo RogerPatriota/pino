@@ -5,7 +5,8 @@ import {
     Landmark,
     Boxes,
     Users,
-    LucideIcon
+    LucideIcon,
+    Home
 } from "lucide-react"
 
 export type NavItem = {
@@ -24,9 +25,9 @@ export const navigationData: NavGroup[] = [
         title: "Serviços",
         items: [
             {
-                name: "Dashboard",
+                name: "Início",
                 url: "/dashboard",
-                icon: LayoutDashboard,
+                icon: Home,
             },
             {
                 name: "Reparos",

@@ -11,9 +11,9 @@ function SideBarNav({ data, pathname }: { data: { title: string, items: { name: 
                 <SidebarMenu>
                     {data.items.map((item) => (
                         <SidebarMenuItem key={item.name}>
-                            <SidebarMenuButton asChild className={`cursor-pointer mb-2 p-3! ${isActive(item.url) ? "bg-teal-500/10 hover:bg-teal-500/30" : ""}`}>
-                                <Link href={item.url}>
-                                    <item.icon className={`size-6! stroke-2! pr-1 ${isActive(item.url) ? "text-teal-600" : "text-zinc-700"}`}/>
+                            <SidebarMenuButton asChild className={`cursor-pointer mb-2 p-3! py-5! ${isActive(item.url) ? "bg-teal-500/10 hover:bg-teal-500/15" : ""}`}>
+                                <Link href={item.url} className="flex items-center">
+                                    <item.icon className={`size-6! stroke-2! pr-1 pt-1 ${isActive(item.url) ? "text-teal-600" : "text-zinc-700"}`}/>
                                     <span className={`text-lg font-semibold ${isActive(item.url) ? "text-teal-500" : "text-zinc-600"}`}>{item.name}</span>
                                 </Link>
                             </SidebarMenuButton>
