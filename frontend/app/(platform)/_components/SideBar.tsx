@@ -59,7 +59,6 @@ function SideBarContent() {
                     </>
                 ) : (
                     <div className="flex flex-col items-center gap-4 my-2">
-                        <Wallet strokeWidth={2} className="size-8! text-zinc-500 p-1 rounded-full hover:bg-teal-400/20" />
                         <Cog strokeWidth={2} className="size-8! text-zinc-500 p-1 rounded-full hover:bg-teal-400/20" />
                     </div>
                 )}
