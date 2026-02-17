@@ -26,12 +26,12 @@ function SideBarContent() {
 
     return (
         <Sidebar collapsible="icon" onClick={handleSidebarClick}>
-            <SidebarHeader className="flex flex-row items-center justify-center mt-2">
+            <SidebarHeader className="flex flex-row items-center justify-center">
                 <SidebarMenu className="flex-1 justify-center">
                     <SidebarMenuItem className="flex items-center">
                         <SidebarMenuButton size="lg" className="items-center data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
                             <div className="bg-teal-600 text-white flex aspect-square size-8 items-center justify-center rounded-lg">
-                                <Cpu className="size-5! mr-0.5" />
+                                <Cpu className="size-5!" />
                             </div>
                             <div className="grid flex-1 text-left text-sm leading-tight">
                                 <span className="truncate font-semibold text-lg">Pino</span>
