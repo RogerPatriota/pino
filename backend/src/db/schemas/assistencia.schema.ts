@@ -5,7 +5,6 @@ import { funcionarios } from './funcionario.schema';
 type AssistenciaConfig = {
     iaAtiva: boolean;
     notificarClienteAutomaticamente: boolean;
-    especialidades: string[];
 }
 
 export const assistencias = pgTable('assistencias', {
@@ -17,10 +16,10 @@ export const assistencias = pgTable('assistencias', {
     endereco: text('endereco'),
   
     promptCustomizado: text('prompt_customizado'), 
+    especialidades: varchar({ length: 255 }).array().default([]),
     configuracoes: jsonb('configuracoes').$type<AssistenciaConfig>().default({
         iaAtiva: true,
         notificarClienteAutomaticamente: true,
-        especialidades: []
     }),
   
     createdAt: timestamp('created_at').defaultNow().notNull(),

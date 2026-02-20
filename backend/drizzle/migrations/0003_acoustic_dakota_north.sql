@@ -1,0 +1,2 @@
+ALTER TABLE "assistencias" ALTER COLUMN "configuracoes" SET DEFAULT '{"iaAtiva":true,"notificarClienteAutomaticamente":true}'::jsonb;--> statement-breakpoint
+ALTER TABLE "assistencias" ADD COLUMN "especialidades" varchar(255)[] DEFAULT '{}';
