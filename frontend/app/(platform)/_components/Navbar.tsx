@@ -28,11 +28,11 @@ function Navbar() {
                             <span className="text-sm font-semibold text-white group-has-data-[collapsible=icon]/sidebar-wrapper:hidden">Nova ação</span>
                         </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" side="left" className="bg-white w-40! p-1 mt-2 border border-teal-700/30">
-                        <DropdownMenuItem className="text-zinc-800 hover:bg-zinc-100! hover:text-teal-600! border-b p-1 m-1 my-2 border-zinc-200 text-xs sm:text-xs md:text-xs lg:text-xs">Criar Ordem de Serviço</DropdownMenuItem>
-                        <DropdownMenuItem className="text-zinc-800 hover:bg-zinc-100! hover:text-teal-600! border-b p-1 m-1 my-2 border-zinc-200 text-xs sm:text-xs md:text-xs lg:text-xs">Adicionar produto</DropdownMenuItem>
-                        <DropdownMenuItem className="text-zinc-800 hover:bg-zinc-100! hover:text-teal-600! border-b p-1 m-1 my-2 border-zinc-200 text-xs sm:text-xs md:text-xs lg:text-xs">Adicionar Cliente</DropdownMenuItem>
-                        <DropdownMenuItem className="text-zinc-800 hover:bg-zinc-100! hover:text-teal-600! p-1 m-1 my-2 border-zinc-200 text-xs sm:text-xs md:text-xs lg:text-xs">Adicionar Serviço</DropdownMenuItem>
+                    <DropdownMenuContent align="end" side="left" className="bg-white w-50! mt-2 border border-zinc-200">
+                        <DropdownMenuItem className="text-zinc-800 rounded-lg hover:bg-zinc-100! hover:text-teal-600! text-xs sm:text-xs md:text-xs lg:text-xs">Criar Ordem de Serviço</DropdownMenuItem>
+                        <DropdownMenuItem className="text-zinc-800 rounded-lg hover:bg-zinc-100! hover:text-teal-600! text-xs sm:text-xs md:text-xs lg:text-xs">Adicionar produto</DropdownMenuItem>
+                        <DropdownMenuItem className="text-zinc-800 rounded-lg hover:bg-zinc-100! hover:text-teal-600! text-xs sm:text-xs md:text-xs lg:text-xs">Adicionar Cliente</DropdownMenuItem>
+                        <DropdownMenuItem className="text-zinc-800 rounded-lg hover:bg-zinc-100! hover:text-teal-600! text-xs sm:text-xs md:text-xs lg:text-xs">Adicionar Serviço</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
                 <Bell strokeWidth={2} className="size-5!" />

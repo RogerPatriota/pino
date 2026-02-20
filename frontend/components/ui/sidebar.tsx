@@ -334,7 +334,7 @@ function SidebarHeader({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="sidebar-header"
       data-sidebar="header"
-      className={cn("gap-2 p-1.5 flex flex-col", className)}
+      className={cn("gap-2 p-2 flex flex-col", className)}
       {...props}
     />
   )
@@ -385,7 +385,7 @@ function SidebarGroup({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="sidebar-group"
       data-sidebar="group"
       className={cn(
-        "p-1 relative flex w-full min-w-0 flex-col",
+        "p-1 mt-2 relative flex w-full min-w-0 flex-col",
         className
       )}
       {...props}
@@ -463,7 +463,7 @@ function SidebarMenuItem({ className, ...props }: React.ComponentProps<"li">) {
     <li
       data-slot="sidebar-menu-item"
       data-sidebar="menu-item"
-      className={cn("group/menu-item relative", className)}
+      className={cn("group/menu-item relative flex items-center justify-center", className)}
       {...props}
     />
   )

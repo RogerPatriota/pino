@@ -41,7 +41,7 @@ function SideBarContent() {
                 </SidebarMenu>
                 {open && <SidebarTrigger />}
             </SidebarHeader>
-            <Separator className="my-1"/>
+            <Separator className=""/>
             <SidebarContent>
                 {navigationData.map((group) => (
                     <SideBarNav key={group.title} data={group} pathname={pathname} />
