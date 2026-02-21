@@ -1,6 +1,4 @@
-import { relations } from 'drizzle-orm';
 import { pgTable, uuid, varchar, text, timestamp, jsonb } from 'drizzle-orm/pg-core';
-import { funcionarios } from './funcionario.schema';
 
 type AssistenciaConfig = {
     iaAtiva: boolean;
@@ -26,6 +24,3 @@ export const assistencias = pgTable('assistencias', {
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 
-export const AssistenciaRelations = relations(assistencias, ({ many }) => ({
-    funcionarios: many(funcionarios)
-}))

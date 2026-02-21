@@ -16,3 +16,4 @@ export const clientes = pgTable('clientes', {
   createdAt: timestamp().defaultNow().notNull(),
   updatedAt: timestamp().defaultNow().notNull(),
 });
+
