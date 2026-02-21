@@ -1,6 +1,5 @@
-import { pgTable, uuid, varchar, text, numeric, timestamp, boolean, pgEnum } from 'drizzle-orm/pg-core';
+import { pgTable, uuid, varchar, text, numeric, timestamp, boolean, pgEnum, uniqueIndex } from 'drizzle-orm/pg-core';
 import { assistencias } from './assistencia.schema';
-// import { modelos } from './modelos';
 
 
 export const condicaoPecaEnum = pgEnum('condicao_peca', ['novo', 'usado', 'retirado_original', 'recondicionado', 'com_detalhe']);
@@ -39,5 +38,7 @@ export const produtos = pgTable('produtos', {
   
   createdAt: timestamp().defaultNow().notNull(),
   updatedAt: timestamp().defaultNow().notNull(),
-});
+}, (table) => [
+  uniqueIndex('produtos_assistencia_sku_unique').on(table.assistenciaId, table.sku),
+]);
 
