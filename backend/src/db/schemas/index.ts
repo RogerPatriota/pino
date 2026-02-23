@@ -6,6 +6,8 @@ import { categorias, produtos } from './produtos.schema';
 import { modelos, logAparelhos } from './modelos.schema';
 import { contadores } from './contador.schema';
 import { ordensServico, osServicos, osProdutos } from './os.schema';
+import { estoqueMovimentacoes } from './estoque.schema';
+
 
 
 import {
@@ -20,7 +22,9 @@ import {
   ordensServicoRelations,
   osServicosRelations,
   osProdutosRelations,
+  estoqueMovimentacoesRelations,
 } from './relations';
+
 
 
 
@@ -37,6 +41,7 @@ export const schemas = {
   ordensServico,
   osServicos,
   osProdutos,
+  estoqueMovimentacoes,
   assistenciaRelations,
   funcionariosRelations,
   clientesRelations,
@@ -48,5 +53,7 @@ export const schemas = {
   ordensServicoRelations,
   osServicosRelations,
   osProdutosRelations,
+  estoqueMovimentacoesRelations,
 };
+
 

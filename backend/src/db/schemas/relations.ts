@@ -7,6 +7,8 @@ import { categorias, produtos } from './produtos.schema';
 import { modelos, logAparelhos } from './modelos.schema';
 import { contadores } from './contador.schema';
 import { ordensServico, osServicos, osProdutos } from './os.schema';
+import { estoqueMovimentacoes } from './estoque.schema';
+
 
 
 
@@ -19,7 +21,9 @@ export const assistenciaRelations = relations(assistencias, ({ many }) => ({
   logAparelhos: many(logAparelhos),
   contadores: many(contadores),
   ordensServico: many(ordensServico),
+  estoqueMovimentacoes: many(estoqueMovimentacoes),
 }));
+
 
 
 
@@ -29,7 +33,9 @@ export const funcionariosRelations = relations(funcionarios, ({ one, many }) => 
     references: [assistencias.id],
   }),
   ordensServico: many(ordensServico),
+  movimentacoesEstoque: many(estoqueMovimentacoes),
 }));
+
 
 
 
@@ -63,7 +69,9 @@ export const produtosRelations = relations(produtos, ({ one, many }) => ({
     references: [categorias.id],
   }),
   osProdutos: many(osProdutos),
+  movimentacoesEstoque: many(estoqueMovimentacoes),
 }));
+
 
 
 
@@ -140,6 +148,22 @@ export const osProdutosRelations = relations(osProdutos, ({ one }) => ({
     references: [produtos.id],
   }),
 }));
+
+export const estoqueMovimentacoesRelations = relations(estoqueMovimentacoes, ({ one }) => ({
+  assistencia: one(assistencias, {
+    fields: [estoqueMovimentacoes.assistenciaId],
+    references: [assistencias.id],
+  }),
+  produto: one(produtos, {
+    fields: [estoqueMovimentacoes.produtoId],
+    references: [produtos.id],
+  }),
+  funcionario: one(funcionarios, {
+    fields: [estoqueMovimentacoes.funcionarioId],
+    references: [funcionarios.id],
+  }),
+}));
+
 
 
 

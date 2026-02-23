@@ -57,6 +57,13 @@
       "when": 1771855985484,
       "tag": "0007_fast_siren",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1771856556963,
+      "tag": "0008_ancient_skreet",
+      "breakpoints": true
     }
   ]
 }
