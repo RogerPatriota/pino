@@ -1,4 +1,4 @@
-import { pgTable, uuid, varchar, text, numeric, timestamp, boolean, pgEnum, uniqueIndex } from 'drizzle-orm/pg-core';
+import { pgTable, uuid, varchar, text, numeric, timestamp, boolean, pgEnum, uniqueIndex, integer } from 'drizzle-orm/pg-core';
 import { assistencias } from './assistencia.schema';
 
 
@@ -35,7 +35,9 @@ export const produtos = pgTable('produtos', {
   marca: varchar({ length: 100 }),
   condicao: condicaoPecaEnum().default('novo').notNull(),
   precoCusto: numeric({ precision: 10, scale: 2 }).default('0.00'),
-  
+  precoVenda: numeric({ precision: 10, scale: 2 }).default('0.00'),
+  quantidadeEstoque: integer().default(0).notNull(),
+
   createdAt: timestamp().defaultNow().notNull(),
   updatedAt: timestamp().defaultNow().notNull(),
 }, (table) => [

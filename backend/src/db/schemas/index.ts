@@ -4,6 +4,10 @@ import { funcionarios } from './funcionarios.schema';
 import { servicos } from './serviços.schema';
 import { categorias, produtos } from './produtos.schema';
 import { modelos, logAparelhos } from './modelos.schema';
+import { contadores } from './contador.schema';
+import { ordensServico, osServicos, osProdutos } from './os.schema';
+
+
 import {
   assistenciaRelations,
   funcionariosRelations,
@@ -12,7 +16,13 @@ import {
   produtosRelations,
   modelosRelations,
   logAparelhosRelations,
+  contadoresRelations,
+  ordensServicoRelations,
+  osServicosRelations,
+  osProdutosRelations,
 } from './relations';
+
+
 
 export const schemas = {
   assistencias,
@@ -23,6 +33,10 @@ export const schemas = {
   produtos,
   modelos,
   logAparelhos,
+  contadores,
+  ordensServico,
+  osServicos,
+  osProdutos,
   assistenciaRelations,
   funcionariosRelations,
   clientesRelations,
@@ -30,4 +44,9 @@ export const schemas = {
   produtosRelations,
   modelosRelations,
   logAparelhosRelations,
+  contadoresRelations,
+  ordensServicoRelations,
+  osServicosRelations,
+  osProdutosRelations,
 };
+
