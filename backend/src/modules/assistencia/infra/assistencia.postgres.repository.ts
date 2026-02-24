@@ -4,8 +4,6 @@ import { NodePgDatabase } from 'drizzle-orm/node-postgres';
 import { assistencias } from '../../../db/schemas/assistencia.schema';
 import { Assistencia } from '../domain/assistencia.entity';
 import { IAssistenciaRepository } from '../domain/assistencia.repository.interface';
-import { CreateAssistenciaDto } from '../application/dto/create-assistencia.dto';
-import { UpdateAssistenciaDto } from '../application/dto/update-assistencia.dto';
 import { DB_TOKEN } from '../../../db/database.module';
 
 @Injectable()
@@ -29,18 +27,20 @@ export class AssistenciaPostgresRepository implements IAssistenciaRepository {
     return (rows[0] as Assistencia) ?? null;
   }
 
-  async create(data: CreateAssistenciaDto): Promise<Assistencia> {
+  async create(entity: Assistencia): Promise<Assistencia> {
+    const { id, createdAt, updatedAt, ...insertData } = entity;
     const rows = await this.db
       .insert(assistencias)
-      .values(data)
+      .values(insertData)
       .returning();
     return rows[0] as Assistencia;
   }
 
-  async update(id: string, data: UpdateAssistenciaDto): Promise<Assistencia> {
+  async update(id: string, entity: Assistencia): Promise<Assistencia> {
+    const { id: _id, createdAt: _c, updatedAt: _u, ...updateData } = entity;
     const rows = await this.db
       .update(assistencias)
-      .set({ ...data, updatedAt: new Date() })
+      .set({ ...updateData, updatedAt: new Date() })
       .where(eq(assistencias.id, id))
       .returning();
     return rows[0] as Assistencia;
