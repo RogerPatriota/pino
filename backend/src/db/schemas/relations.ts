@@ -59,6 +59,14 @@ export const servicosRelations = relations(servicos, ({ one, many }) => ({
 
 
 
+export const categoriasRelations = relations(categorias, ({ one, many }) => ({
+  assistencia: one(assistencias, {
+    fields: [categorias.assistenciaId],
+    references: [assistencias.id],
+  }),
+  produtos: many(produtos),
+}));
+
 export const produtosRelations = relations(produtos, ({ one, many }) => ({
   assistencia: one(assistencias, {
     fields: [produtos.assistenciaId],
