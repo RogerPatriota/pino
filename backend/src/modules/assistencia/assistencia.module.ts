@@ -3,6 +3,7 @@ import { IAssistenciaRepository } from './domain/assistencia.repository.interfac
 import { AssistenciaPostgresRepository } from './infra/assistencia.postgres.repository';
 import { AssistenciaService } from './application/assistencia.service';
 import { AssistenciaController } from './interface/assistencia.controller';
+import { ContadorService } from './application/contador.service';
 
 @Module({
   controllers: [AssistenciaController],
@@ -12,6 +13,7 @@ import { AssistenciaController } from './interface/assistencia.controller';
       useClass: AssistenciaPostgresRepository,
     },
     AssistenciaService,
+    ContadorService
   ],
 })
 export class AssistenciaModule {}

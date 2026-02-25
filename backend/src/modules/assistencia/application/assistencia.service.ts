@@ -3,15 +3,20 @@ import {
   NotFoundException,
   InternalServerErrorException,
   HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { Assistencia } from '../domain/assistencia.entity';
 import { IAssistenciaRepository } from '../domain/assistencia.repository.interface';
 import { CreateAssistenciaDto } from './dto/create-assistencia.dto';
 import { UpdateAssistenciaDto } from './dto/update-assistencia.dto';
+import { ContadorService } from './contador.service';
 
 @Injectable()
 export class AssistenciaService {
-  constructor(private readonly repository: IAssistenciaRepository) {}
+  constructor(
+    private readonly repository: IAssistenciaRepository,
+    private readonly contadorService: ContadorService
+  ) {}
 
   async findAll(): Promise<Assistencia[]> {
     try {
@@ -27,6 +32,7 @@ export class AssistenciaService {
     try {
       const entity = await this.repository.findById(id);
       if (!entity) throw new NotFoundException('Assistência não encontrada');
+
       return entity;
     } catch (error) {
       console.error(`[AssistenciaService.findById] ID: ${id}`, error);
@@ -37,10 +43,19 @@ export class AssistenciaService {
 
   async create(dto: CreateAssistenciaDto): Promise<Assistencia> {
     try {
-      const entity = new Assistencia(dto); // valida CNPJ aqui
-      return await this.repository.create(entity);
+      const entity = new Assistencia(dto);
+
+      return await this.repository.transaction(async (tx) => {
+        const created = await this.repository.create(entity, tx);
+        await this.contadorService.initialize(created.id, tx);
+        return created;
+      });
     } catch (error) {
       console.error('[AssistenciaService.create]', error);
+
+      if (error.cause?.constraint == 'assistencias_cnpj_unique') {
+        throw new HttpException('CNPJ já cadastrado', HttpStatus.BAD_REQUEST);
+      }
       if (error instanceof HttpException) throw error;
       throw new InternalServerErrorException('Erro ao criar assistência');
     }

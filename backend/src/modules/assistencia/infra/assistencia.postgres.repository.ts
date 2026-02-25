@@ -13,6 +13,10 @@ export class AssistenciaPostgresRepository implements IAssistenciaRepository {
     private readonly db: NodePgDatabase<any>,
   ) {}
 
+  async transaction<T>(fn: (tx: unknown) => Promise<T>): Promise<T> {
+    return this.db.transaction(async (tx) => fn(tx));
+  }
+
   async findAll(): Promise<Assistencia[]> {
     const rows = await this.db.select().from(assistencias);
     return rows as Assistencia[];
@@ -27,9 +31,10 @@ export class AssistenciaPostgresRepository implements IAssistenciaRepository {
     return (rows[0] as Assistencia) ?? null;
   }
 
-  async create(entity: Assistencia): Promise<Assistencia> {
+  async create(entity: Assistencia, tx?: unknown): Promise<Assistencia> {
+    const runner = (tx ?? this.db) as NodePgDatabase<any>;
     const { id, createdAt, updatedAt, ...insertData } = entity;
-    const rows = await this.db
+    const rows = await runner
       .insert(assistencias)
       .values(insertData)
       .returning();

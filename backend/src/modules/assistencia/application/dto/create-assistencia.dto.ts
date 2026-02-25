@@ -18,7 +18,7 @@ export class CreateAssistenciaDto {
   @ApiPropertyOptional({ description: 'URL do logo', example: 'https://exemplo.com/logo.png' })
   logoUrl?: string;
 
-  @ApiPropertyOptional({ description: 'CNPJ da assistência', example: '12.345.678/0001-99' })
+  @ApiPropertyOptional({ description: 'CNPJ da assistência', example: '78.342.703/0001-95' })
   cnpj?: string;
 
   @ApiPropertyOptional({ description: 'Endereço completo', example: 'Rua das Palmeiras, 123 - São Paulo, SP' })
