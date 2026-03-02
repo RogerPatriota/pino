@@ -50,7 +50,9 @@ export class FuncionarioService {
       return await this.repository.create(entity);
     } catch (error) {
       console.error('[FuncionarioService.create]', error);
-
+      if (error.cause?.constraint === 'funcionarios_assistencia_id_assistencias_id_fk') {
+        throw new HttpException('Assistência não encontrada', HttpStatus.BAD_REQUEST);
+      }
       if (error.cause?.constraint === 'funcionarios_assistencia_email_unique') {
         throw new HttpException('Email já cadastrado nesta assistência', HttpStatus.BAD_REQUEST);
       }
@@ -68,7 +70,6 @@ export class FuncionarioService {
     try {
       const updateData: Partial<Funcionario> = { ...dto };
 
-      // Re-hasheia senha se fornecida
       if (dto.senha) {
         updateData.senha = await bcrypt.hash(dto.senha, SALT_ROUNDS);
       }
