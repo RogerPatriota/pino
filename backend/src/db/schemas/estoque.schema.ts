@@ -26,6 +26,7 @@ export const estoqueMovimentacoes = pgTable('estoque_movimentacoes', {
 
     tipo: tipoMovimentacaoEnum().notNull(),
     quantidade: integer().notNull(),
+    precoUnidade: numeric({ precision: 10, scale: 2 }).default('0.00'),
     precoCusto: numeric({ precision: 10, scale: 2 }).default('0.00'),
     motivo: text(),
 

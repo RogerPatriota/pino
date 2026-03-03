@@ -8,6 +8,7 @@ import { LogAparelhoModule } from './modules/log-aparelho/log-aparelho.module';
 import { ServicoModule } from './modules/servico/servico.module';
 import { ClienteModule } from './modules/cliente/cliente.module';
 import { ProdutoModule } from './modules/produto/produto.module';
+import { EstoqueModule } from './modules/estoque/estoque.module';
 
 @Module({
   imports: [
@@ -20,10 +21,12 @@ import { ProdutoModule } from './modules/produto/produto.module';
     ServicoModule,
     ClienteModule,
     ProdutoModule,
+    EstoqueModule,
   ],
   controllers: [],
   providers: [],
 })
 export class AppModule {}
+
 
 

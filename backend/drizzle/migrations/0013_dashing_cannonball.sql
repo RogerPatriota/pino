@@ -1,0 +1,1 @@
+ALTER TABLE "estoque_movimentacoes" ADD COLUMN "preco_unidade" numeric(10, 2) DEFAULT '0.00';
