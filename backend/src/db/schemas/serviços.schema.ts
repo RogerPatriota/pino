@@ -2,6 +2,7 @@
 import { pgTable, uuid, varchar, text, numeric, timestamp, boolean } from 'drizzle-orm/pg-core';
 import { assistencias } from './assistencia.schema';
 import { modelos } from './modelos.schema';
+import { integer } from 'drizzle-orm/pg-core';
 
 export const servicos = pgTable('servicos', {
   id: uuid('id').defaultRandom().primaryKey(),
@@ -13,7 +14,7 @@ export const servicos = pgTable('servicos', {
   descricao: text(),
   precoBase: numeric({ precision: 10, scale: 2 }).default('0.00'),
   modeloId: uuid().references(() => modelos.id),
-  tempoEstimado: varchar({ length: 50 }),
+  tempoEstimado: integer().default(0),
   ativo: boolean('ativo').default(true),
   
   createdAt: timestamp().defaultNow().notNull(),

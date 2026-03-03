@@ -4,7 +4,7 @@ type ServicoProps = {
   descricao?: string | null;
   precoBase?: string | null;
   modeloId?: string | null;
-  tempoEstimado?: string | null;
+  tempoEstimado?: number | null;
   ativo?: boolean | null;
 };
 
@@ -15,7 +15,7 @@ export class Servico {
   descricao: string | null;
   precoBase: string | null;
   modeloId: string | null;
-  tempoEstimado: string | null;
+  tempoEstimado: number | null;
   ativo: boolean;
   createdAt: Date;
   updatedAt: Date;

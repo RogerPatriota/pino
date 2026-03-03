@@ -1,0 +1,1 @@
+ALTER TABLE "servicos" ALTER COLUMN "tempo_estimado" SET DATA TYPE integer USING tempo_estimado::integer;

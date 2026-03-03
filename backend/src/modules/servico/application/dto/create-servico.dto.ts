@@ -16,8 +16,8 @@ export class CreateServicoDto {
   @ApiPropertyOptional({ description: 'UUID do modelo associado' })
   modeloId?: string;
 
-  @ApiPropertyOptional({ description: 'Tempo estimado para o serviço', example: '2h' })
-  tempoEstimado?: string;
+  @ApiPropertyOptional({ description: 'Tempo estimado para o serviço (em minutos)', example: 30 })
+  tempoEstimado?: number;
 
   @ApiPropertyOptional({ description: 'Serviço ativo', example: true, default: true })
   ativo?: boolean;
