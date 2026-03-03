@@ -3,9 +3,10 @@ import { IAssistenciaRepository } from './domain/assistencia.repository.interfac
 import { AssistenciaPostgresRepository } from './infra/assistencia.postgres.repository';
 import { AssistenciaService } from './application/assistencia.service';
 import { AssistenciaController } from './interface/assistencia.controller';
-import { ContadorService } from './application/contador.service';
+import { SharedModule } from '../../shared/shared.module';
 
 @Module({
+  imports: [SharedModule],
   controllers: [AssistenciaController],
   providers: [
     {
@@ -13,7 +14,7 @@ import { ContadorService } from './application/contador.service';
       useClass: AssistenciaPostgresRepository,
     },
     AssistenciaService,
-    ContadorService
   ],
 })
 export class AssistenciaModule {}
+

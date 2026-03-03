@@ -9,7 +9,7 @@ import { Assistencia } from '../domain/assistencia.entity';
 import { IAssistenciaRepository } from '../domain/assistencia.repository.interface';
 import { CreateAssistenciaDto } from './dto/create-assistencia.dto';
 import { UpdateAssistenciaDto } from './dto/update-assistencia.dto';
-import { ContadorService } from './contador.service';
+import { ContadorService } from '../../../shared/contador.service';
 
 @Injectable()
 export class AssistenciaService {
