@@ -13,10 +13,11 @@ export class ModeloPostgresRepository implements IModeloRepository {
     private readonly db: NodePgDatabase<any>,
   ) {}
 
-  async findAll(): Promise<Modelo[]> {
+  async findAllByAssistencia(assistenciaId: string): Promise<Modelo[]> {
     const rows = await this.db
       .select()
-      .from(modelos);
+      .from(modelos)
+      .where(eq(modelos.assistenciaId, assistenciaId));
     return rows as Modelo[];
   }
 

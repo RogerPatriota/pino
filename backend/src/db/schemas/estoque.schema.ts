@@ -1,4 +1,4 @@
-import { pgTable, uuid, integer, varchar, timestamp, text, pgEnum } from 'drizzle-orm/pg-core';
+import { pgTable, uuid, integer, varchar, timestamp, text, pgEnum, numeric } from 'drizzle-orm/pg-core';
 import { assistencias } from './assistencia.schema';
 import { produtos } from './produtos.schema';
 import { funcionarios } from './funcionarios.schema';
@@ -26,6 +26,7 @@ export const estoqueMovimentacoes = pgTable('estoque_movimentacoes', {
 
     tipo: tipoMovimentacaoEnum().notNull(),
     quantidade: integer().notNull(),
+    precoCusto: numeric({ precision: 10, scale: 2 }).default('0.00'),
     motivo: text(),
 
     createdAt: timestamp().defaultNow().notNull(),

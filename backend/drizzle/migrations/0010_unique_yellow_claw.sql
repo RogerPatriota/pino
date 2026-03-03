@@ -1,0 +1,2 @@
+ALTER TABLE "modelos" ADD COLUMN "assistencia_id" uuid NOT NULL;--> statement-breakpoint
+ALTER TABLE "modelos" ADD CONSTRAINT "modelos_assistencia_id_assistencias_id_fk" FOREIGN KEY ("assistencia_id") REFERENCES "public"."assistencias"("id") ON DELETE cascade ON UPDATE no action;

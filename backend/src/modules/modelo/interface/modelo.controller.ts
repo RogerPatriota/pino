@@ -6,6 +6,7 @@ import {
   Delete,
   Param,
   Body,
+  Query,
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
@@ -14,6 +15,7 @@ import {
   ApiOperation,
   ApiResponse,
   ApiParam,
+  ApiQuery,
   ApiBody,
 } from '@nestjs/swagger';
 import { ModeloService } from '../application/modelo.service';
@@ -26,10 +28,11 @@ export class ModeloController {
   constructor(private readonly service: ModeloService) {}
 
   @Get()
-  @ApiOperation({ summary: 'Listar todos os modelos' })
+  @ApiOperation({ summary: 'Listar modelos de uma assistência' })
+  @ApiQuery({ name: 'assistenciaId', type: String, description: 'UUID da assistência' })
   @ApiResponse({ status: 200, description: 'Lista de modelos retornada com sucesso' })
-  findAll() {
-    return this.service.findAll();
+  findAll(@Query('assistenciaId') assistenciaId: string) {
+    return this.service.findAll(assistenciaId);
   }
 
   @Get(':id')

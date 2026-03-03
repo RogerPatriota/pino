@@ -1,6 +1,9 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateModeloDto {
+  @ApiProperty({ description: 'UUID da assistência', example: '550e8400-e29b-41d4-a716-446655440000' })
+  assistenciaId: string;
+
   @ApiProperty({ description: 'Marca do aparelho', example: 'Samsung' })
   marca: string;
 

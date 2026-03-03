@@ -64,6 +64,20 @@
       "when": 1771856556963,
       "tag": "0008_ancient_skreet",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1772506800334,
+      "tag": "0009_curvy_norman_osborn",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1772507769198,
+      "tag": "0010_unique_yellow_claw",
+      "breakpoints": true
     }
   ]
 }

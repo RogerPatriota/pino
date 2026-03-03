@@ -3,6 +3,7 @@ import {
   NotFoundException,
   InternalServerErrorException,
   HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { Modelo } from '../domain/modelo.entity';
 import { IModeloRepository } from '../domain/modelo.repository.interface';
@@ -15,9 +16,9 @@ export class ModeloService {
     private readonly repository: IModeloRepository,
   ) {}
 
-  async findAll(): Promise<Modelo[]> {
+  async findAll(assistenciaId: string): Promise<Modelo[]> {
     try {
-      return await this.repository.findAll();
+      return await this.repository.findAllByAssistencia(assistenciaId);
     } catch (error) {
       console.error('[ModeloService.findAll]', error);
       if (error instanceof HttpException) throw error;
@@ -44,6 +45,9 @@ export class ModeloService {
       return await this.repository.create(entity);
     } catch (error) {
       console.error('[ModeloService.create]', error);
+      if (error.cause?.constraint === 'modelos_assistencia_id_assistencias_id_fk') {
+        throw new HttpException('Assistência não encontrada', HttpStatus.BAD_REQUEST);
+      }
       if (error instanceof HttpException) throw error;
       throw new InternalServerErrorException('Erro ao criar modelo');
     }

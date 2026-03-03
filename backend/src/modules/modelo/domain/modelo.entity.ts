@@ -1,4 +1,5 @@
 type ModeloProps = {
+  assistenciaId: string;
   marca: string;
   nomeComercial: string;
   modeloTecnico?: string | null;
@@ -7,6 +8,7 @@ type ModeloProps = {
 
 export class Modelo {
   id: string;
+  assistenciaId: string;
   marca: string;
   nomeComercial: string;
   modeloTecnico: string | null;

@@ -1,6 +1,7 @@
 
 import { pgTable, uuid, varchar, text, numeric, timestamp, boolean } from 'drizzle-orm/pg-core';
 import { assistencias } from './assistencia.schema';
+import { modelos } from './modelos.schema';
 
 export const servicos = pgTable('servicos', {
   id: uuid('id').defaultRandom().primaryKey(),
@@ -11,7 +12,7 @@ export const servicos = pgTable('servicos', {
   nome: varchar({ length: 255 }).notNull(),
   descricao: text(),
   precoBase: numeric({ precision: 10, scale: 2 }).default('0.00'),
-  // modelo do serviço (pos criar tabela de modelos)
+  modeloId: uuid().references(() => modelos.id),
   tempoEstimado: varchar({ length: 50 }),
   ativo: boolean('ativo').default(true),
   

@@ -4,6 +4,9 @@ import { clientes } from './clientes.schema';
 
 export const modelos = pgTable('modelos', {
   id: uuid().defaultRandom().primaryKey(),
+  assistenciaId: uuid()
+    .references(() => assistencias.id, { onDelete: 'cascade' })
+    .notNull(),
   
   marca: varchar({ length: 100 }).notNull(),
   nomeComercial: varchar({ length: 255 }).notNull(),

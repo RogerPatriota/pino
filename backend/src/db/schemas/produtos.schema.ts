@@ -1,5 +1,6 @@
 import { pgTable, uuid, varchar, text, numeric, timestamp, boolean, pgEnum, uniqueIndex, integer } from 'drizzle-orm/pg-core';
 import { assistencias } from './assistencia.schema';
+import { modelos } from './modelos.schema';
 
 
 export const condicaoPecaEnum = pgEnum('condicao_peca', ['novo', 'usado', 'retirado_original', 'recondicionado', 'com_detalhe']);
@@ -29,13 +30,12 @@ export const produtos = pgTable('produtos', {
     .references(() => categorias.id)
     .notNull(),
 
-  // modeloId: uuid().references(() => modelos.id), // Deixe comentado até criarmos a de modelos
+  modeloId: uuid().references(() => modelos.id),
   sku: varchar({ length: 100 }), 
   nomeCustomizado: varchar({ length: 255 }),
   marca: varchar({ length: 100 }),
   condicao: condicaoPecaEnum().default('novo').notNull(),
-  precoCusto: numeric({ precision: 10, scale: 2 }).default('0.00'),
-  precoVenda: numeric({ precision: 10, scale: 2 }).default('0.00'),
+  precoVenda: numeric({ precision: 10, scale: 2 }).notNull(),
   quantidadeEstoque: integer().default(0).notNull(),
 
   createdAt: timestamp().defaultNow().notNull(),

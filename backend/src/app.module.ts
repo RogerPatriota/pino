@@ -4,6 +4,7 @@ import { AssistenciaModule } from './modules/assistencia/assistencia.module';
 import { FuncionarioModule } from './modules/funcionario/funcionario.module';
 import { ModeloModule } from './modules/modelo/modelo.module';
 import { LogAparelhoModule } from './modules/log-aparelho/log-aparelho.module';
+import { ServicoModule } from './modules/servico/servico.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { LogAparelhoModule } from './modules/log-aparelho/log-aparelho.module';
     FuncionarioModule,
     ModeloModule,
     LogAparelhoModule,
+    ServicoModule,
   ],
   controllers: [],
   providers: [],

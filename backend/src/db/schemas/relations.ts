@@ -18,6 +18,7 @@ export const assistenciaRelations = relations(assistencias, ({ many }) => ({
   servicos: many(servicos),
   produtos: many(produtos),
   categorias: many(categorias),
+  modelos: many(modelos),
   logAparelhos: many(logAparelhos),
   contadores: many(contadores),
   ordensServico: many(ordensServico),
@@ -54,6 +55,10 @@ export const servicosRelations = relations(servicos, ({ one, many }) => ({
     fields: [servicos.assistenciaId],
     references: [assistencias.id],
   }),
+  modelo: one(modelos, {
+    fields: [servicos.modeloId],
+    references: [modelos.id],
+  }),
   osServicos: many(osServicos),
 }));
 
@@ -76,6 +81,10 @@ export const produtosRelations = relations(produtos, ({ one, many }) => ({
     fields: [produtos.categoriaId],
     references: [categorias.id],
   }),
+  modelo: one(modelos, {
+    fields: [produtos.modeloId],
+    references: [modelos.id],
+  }),
   osProdutos: many(osProdutos),
   movimentacoesEstoque: many(estoqueMovimentacoes),
 }));
@@ -83,8 +92,14 @@ export const produtosRelations = relations(produtos, ({ one, many }) => ({
 
 
 
-export const modelosRelations = relations(modelos, ({ many }) => ({
+export const modelosRelations = relations(modelos, ({ one, many }) => ({
+  assistencia: one(assistencias, {
+    fields: [modelos.assistenciaId],
+    references: [assistencias.id],
+  }),
   logAparelhos: many(logAparelhos),
+  servicos: many(servicos),
+  produtos: many(produtos),
 }));
 
 

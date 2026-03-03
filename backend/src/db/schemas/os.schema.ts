@@ -35,7 +35,7 @@ export const osProdutos = pgTable('os_produtos', {
   osId: uuid().references(() => ordensServico.id, { onDelete: 'cascade' }).notNull(),
   produtoId: uuid().references(() => produtos.id).notNull(),
   
-  valorCobrado: numeric({ precision: 10, scale: 2 }).notNull(),
+  precoVenda: numeric({ precision: 10, scale: 2 }).notNull(),
   quantidade: integer().default(1).notNull(),
 
   createdAt: timestamp().defaultNow().notNull(),
@@ -61,6 +61,7 @@ export const ordensServico = pgTable('ordens_servico', {
   dataEntrada: timestamp().defaultNow().notNull(),
   dataInicioReparo: timestamp(),
   dataSaida: timestamp(),
+  valorTotal: numeric({ precision: 10, scale: 2 }).default('0.00'),
 
   createdAt: timestamp().defaultNow().notNull(),
   updatedAt: timestamp().defaultNow().notNull(),
