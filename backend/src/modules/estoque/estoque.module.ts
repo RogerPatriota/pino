@@ -13,5 +13,6 @@ import { EstoqueController } from './interface/estoque.controller';
     },
     EstoqueService,
   ],
+  exports: [IEstoqueRepository],
 })
 export class EstoqueModule {}

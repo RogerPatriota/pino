@@ -9,6 +9,7 @@ import { ServicoModule } from './modules/servico/servico.module';
 import { ClienteModule } from './modules/cliente/cliente.module';
 import { ProdutoModule } from './modules/produto/produto.module';
 import { EstoqueModule } from './modules/estoque/estoque.module';
+import { OsModule } from './modules/os/os.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { EstoqueModule } from './modules/estoque/estoque.module';
     ClienteModule,
     ProdutoModule,
     EstoqueModule,
+    OsModule,
   ],
   controllers: [],
   providers: [],
