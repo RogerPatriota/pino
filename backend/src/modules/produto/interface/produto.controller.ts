@@ -1,7 +1,8 @@
 import {
   Controller, Get, Post, Put, Delete,
-  Param, Body, Query, HttpCode, HttpStatus,
+  Param, Body, Query, HttpCode, HttpStatus, UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import {
   ApiTags, ApiOperation, ApiResponse,
   ApiParam, ApiQuery, ApiBody,
@@ -9,18 +10,19 @@ import {
 import { ProdutoService } from '../application/produto.service';
 import { CreateProdutoDto } from '../application/dto/create-produto.dto';
 import { UpdateProdutoDto } from '../application/dto/update-produto.dto';
+import { CurrentUser } from '../../../auth/decorators/current-user.decorator';
 
 @ApiTags('Produtos')
+@UseGuards(AuthGuard('jwt'))
 @Controller('produtos')
 export class ProdutoController {
   constructor(private readonly service: ProdutoService) {}
 
   @Get()
   @ApiOperation({ summary: 'Listar produtos de uma assistência' })
-  @ApiQuery({ name: 'assistenciaId', type: String, description: 'UUID da assistência' })
   @ApiResponse({ status: 200, description: 'Lista de produtos retornada com sucesso' })
-  findAll(@Query('assistenciaId') assistenciaId: string) {
-    return this.service.findAll(assistenciaId);
+  findAll(@CurrentUser() user: any) {
+    return this.service.findAll(user.assistenciaId);
   }
 
   @Get(':id')

@@ -9,7 +9,9 @@ import {
   Query,
   HttpCode,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import {
   ApiTags,
   ApiOperation,
@@ -21,18 +23,19 @@ import {
 import { LogAparelhoService } from '../application/log-aparelho.service';
 import { CreateLogAparelhoDto } from '../application/dto/create-log-aparelho.dto';
 import { UpdateLogAparelhoDto } from '../application/dto/update-log-aparelho.dto';
+import { CurrentUser } from '../../../auth/decorators/current-user.decorator';
 
 @ApiTags('Log Aparelhos')
+@UseGuards(AuthGuard('jwt'))
 @Controller('log-aparelhos')
 export class LogAparelhoController {
   constructor(private readonly service: LogAparelhoService) {}
 
   @Get()
   @ApiOperation({ summary: 'Listar aparelhos de uma assistência' })
-  @ApiQuery({ name: 'assistenciaId', type: String, description: 'UUID da assistência' })
   @ApiResponse({ status: 200, description: 'Lista de aparelhos retornada com sucesso' })
-  findAll(@Query('assistenciaId') assistenciaId: string) {
-    return this.service.findAllByAssistencia(assistenciaId);
+  findAll(@CurrentUser() user: any) {
+    return this.service.findAllByAssistencia(user.assistenciaId);
   }
 
   @Get(':id')

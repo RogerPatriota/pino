@@ -1,26 +1,28 @@
 import {
   Controller, Get, Post,
   Body, Query,
-  HttpCode, HttpStatus,
+  HttpCode, HttpStatus, UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import {
   ApiTags, ApiOperation, ApiResponse,
   ApiQuery, ApiBody,
 } from '@nestjs/swagger';
 import { EstoqueService } from '../application/estoque.service';
 import { CreateMovimentacaoDto } from '../application/dto/create-movimentacao.dto';
+import { CurrentUser } from '../../../auth/decorators/current-user.decorator';
 
 @ApiTags('Estoque')
+@UseGuards(AuthGuard('jwt'))
 @Controller('estoque')
 export class EstoqueController {
   constructor(private readonly service: EstoqueService) {}
 
   @Get()
   @ApiOperation({ summary: 'Listar movimentações de uma assistência' })
-  @ApiQuery({ name: 'assistenciaId', type: String, description: 'UUID da assistência' })
   @ApiResponse({ status: 200, description: 'Lista de movimentações retornada com sucesso' })
-  listarPorAssistencia(@Query('assistenciaId') assistenciaId: string) {
-    return this.service.listarPorAssistencia(assistenciaId);
+  listarPorAssistencia(@CurrentUser() user: any) {
+    return this.service.listarPorAssistencia(user.assistenciaId);
   }
 
   @Get('produto')

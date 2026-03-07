@@ -42,6 +42,19 @@ export class FuncionarioService {
     }
   }
 
+  async findByEmail(assistenciaId: string, email: string): Promise<Funcionario> {
+    try {
+      const entity = await this.repository.findByEmail(assistenciaId, email);
+      if (!entity) throw new NotFoundException('Funcionário não encontrado');
+
+      return entity;
+    } catch (error) {
+      console.error(`[FuncionarioService.findByEmail] Email: ${email}`, error);
+      if (error instanceof HttpException) throw error;
+      throw new InternalServerErrorException('Erro ao buscar funcionário');
+    }
+  }
+
   async create(dto: CreateFuncionarioDto): Promise<Funcionario> {
     try {
       const entity = new Funcionario(dto);

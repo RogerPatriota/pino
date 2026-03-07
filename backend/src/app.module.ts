@@ -10,9 +10,12 @@ import { ClienteModule } from './modules/cliente/cliente.module';
 import { ProdutoModule } from './modules/produto/produto.module';
 import { EstoqueModule } from './modules/estoque/estoque.module';
 import { OsModule } from './modules/os/os.module';
+import { AuthModule } from './auth/auth.module';
+import { AuthService } from './auth/application/auth.service';
 
 @Module({
   imports: [
+    AuthModule,
     DatabaseModule,
     SharedModule,
     AssistenciaModule,

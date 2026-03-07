@@ -152,7 +152,6 @@ export class OsService {
   }
 
   async updateStatus(id: string, assistenciaId: string, dto: UpdateOsStatusDto): Promise<OrdemServico> {
-    // Verifica existência antes de atualizar
     await this.findById(id, assistenciaId);
     try {
       return await this.repository.updateStatus(id, dto.status);

@@ -9,7 +9,9 @@ import {
   Query,
   HttpCode,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import {
   ApiTags,
   ApiOperation,
@@ -21,18 +23,19 @@ import {
 import { ServicoService } from '../application/servico.service';
 import { CreateServicoDto } from '../application/dto/create-servico.dto';
 import { UpdateServicoDto } from '../application/dto/update-servico.dto';
+import { CurrentUser } from '../../../auth/decorators/current-user.decorator';
 
 @ApiTags('Serviços')
+@UseGuards(AuthGuard('jwt'))
 @Controller('servicos')
 export class ServicoController {
   constructor(private readonly service: ServicoService) {}
 
   @Get()
   @ApiOperation({ summary: 'Listar serviços de uma assistência' })
-  @ApiQuery({ name: 'assistenciaId', type: String, description: 'UUID da assistência' })
   @ApiResponse({ status: 200, description: 'Lista de serviços retornada com sucesso' })
-  findAll(@Query('assistenciaId') assistenciaId: string) {
-    return this.service.findAll(assistenciaId);
+  findAll(@CurrentUser() user: any) {
+    return this.service.findAll(user.assistenciaId);
   }
 
   @Get(':id')

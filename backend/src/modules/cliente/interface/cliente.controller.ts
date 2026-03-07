@@ -9,7 +9,9 @@ import {
   Query,
   HttpCode,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import {
   ApiTags,
   ApiOperation,
@@ -21,18 +23,19 @@ import {
 import { ClienteService } from '../application/cliente.service';
 import { CreateClienteDto } from '../application/dto/create-cliente.dto';
 import { UpdateClienteDto } from '../application/dto/update-cliente.dto';
+import { CurrentUser } from '../../../auth/decorators/current-user.decorator';
 
 @ApiTags('Clientes')
+@UseGuards(AuthGuard('jwt'))
 @Controller('clientes')
 export class ClienteController {
   constructor(private readonly service: ClienteService) {}
 
   @Get()
   @ApiOperation({ summary: 'Listar clientes de uma assistência' })
-  @ApiQuery({ name: 'assistenciaId', type: String, description: 'UUID da assistência' })
   @ApiResponse({ status: 200, description: 'Lista de clientes retornada com sucesso' })
-  findAll(@Query('assistenciaId') assistenciaId: string) {
-    return this.service.findAll(assistenciaId);
+  findAll(@CurrentUser() user: any) {
+    return this.service.findAll(user.assistenciaId);
   }
 
   @Get(':id')

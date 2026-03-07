@@ -1,7 +1,8 @@
 import {
   Controller, Get, Post, Patch,
-  Param, Body, Query, HttpCode, HttpStatus,
+  Param, Body, Query, HttpCode, HttpStatus, UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import {
   ApiTags, ApiOperation, ApiResponse,
   ApiParam, ApiQuery, ApiBody,
@@ -9,37 +10,37 @@ import {
 import { OsService } from '../application/os.service';
 import { CreateOsDto } from '../application/dto/create-os.dto';
 import { UpdateOsStatusDto } from '../application/dto/update-os-status.dto';
+import { CurrentUser } from '../../../auth/decorators/current-user.decorator';
 
 @ApiTags('Ordens de Serviço')
+@UseGuards(AuthGuard('jwt'))
 @Controller('os')
 export class OsController {
   constructor(private readonly service: OsService) {}
 
   @Get()
   @ApiOperation({ summary: 'Listar OSs de uma assistência com filtros opcionais' })
-  @ApiQuery({ name: 'assistenciaId', type: String, description: 'UUID da assistência (obrigatório)' })
   @ApiQuery({ name: 'status', required: false, enum: ['orcamento', 'aprovado', 'em_manutencao', 'aguardando_peca', 'pronto', 'entregue', 'cancelado'] })
   @ApiQuery({ name: 'clienteId', required: false, type: String })
   @ApiResponse({ status: 200, description: 'Lista de OSs retornada com sucesso' })
   findAll(
-    @Query('assistenciaId') assistenciaId: string,
+    @CurrentUser() user: any,
     @Query('status') status?: string,
     @Query('clienteId') clienteId?: string,
   ) {
-    return this.service.findAll(assistenciaId, { status, clienteId });
+    return this.service.findAll(user.assistenciaId, { status, clienteId });
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'Buscar OS por ID com produtos e serviços incluídos' })
   @ApiParam({ name: 'id', type: String })
-  @ApiQuery({ name: 'assistenciaId', type: String, description: 'UUID da assistência (multi-tenant)' })
   @ApiResponse({ status: 200, description: 'OS encontrada com array de produtos e serviços' })
   @ApiResponse({ status: 404, description: 'OS não encontrada' })
   findById(
     @Param('id') id: string,
-    @Query('assistenciaId') assistenciaId: string,
+    @CurrentUser() user: any,
   ) {
-    return this.service.findById(id, assistenciaId);
+    return this.service.findById(id, user.assistenciaId);
   }
 
   @Post()
@@ -59,15 +60,14 @@ export class OsController {
   @Patch(':id/status')
   @ApiOperation({ summary: 'Atualizar status da OS' })
   @ApiParam({ name: 'id', type: String, description: 'UUID da OS' })
-  @ApiQuery({ name: 'assistenciaId', type: String, description: 'UUID da assistência (multi-tenant)' })
   @ApiBody({ type: UpdateOsStatusDto })
   @ApiResponse({ status: 200, description: 'Status atualizado com sucesso' })
   @ApiResponse({ status: 404, description: 'OS não encontrada' })
   updateStatus(
     @Param('id') id: string,
-    @Query('assistenciaId') assistenciaId: string,
+    @CurrentUser() user: any,
     @Body() dto: UpdateOsStatusDto,
   ) {
-    return this.service.updateStatus(id, assistenciaId, dto);
+    return this.service.updateStatus(id, user.assistenciaId, dto);
   }
 }

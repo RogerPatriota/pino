@@ -13,5 +13,6 @@ import { FuncionarioController } from './interface/funcionario.controller';
     },
     FuncionarioService,
   ],
+  exports: [FuncionarioService],
 })
 export class FuncionarioModule {}

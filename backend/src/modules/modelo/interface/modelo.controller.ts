@@ -9,7 +9,9 @@ import {
   Query,
   HttpCode,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import {
   ApiTags,
   ApiOperation,
@@ -21,18 +23,19 @@ import {
 import { ModeloService } from '../application/modelo.service';
 import { CreateModeloDto } from '../application/dto/create-modelo.dto';
 import { UpdateModeloDto } from '../application/dto/update-modelo.dto';
+import { CurrentUser } from '../../../auth/decorators/current-user.decorator';
 
 @ApiTags('Modelos')
+@UseGuards(AuthGuard('jwt'))
 @Controller('modelos')
 export class ModeloController {
   constructor(private readonly service: ModeloService) {}
 
   @Get()
   @ApiOperation({ summary: 'Listar modelos de uma assistência' })
-  @ApiQuery({ name: 'assistenciaId', type: String, description: 'UUID da assistência' })
   @ApiResponse({ status: 200, description: 'Lista de modelos retornada com sucesso' })
-  findAll(@Query('assistenciaId') assistenciaId: string) {
-    return this.service.findAll(assistenciaId);
+  findAll(@CurrentUser() user: any) {
+    return this.service.findAll(user.assistenciaId);
   }
 
   @Get(':id')

@@ -1,7 +1,8 @@
 import {
   Controller, Get, Post, Put, Delete,
-  Param, Body, Query, HttpCode, HttpStatus,
+  Param, Body, Query, HttpCode, HttpStatus, UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import {
   ApiTags, ApiOperation, ApiResponse,
   ApiParam, ApiQuery, ApiBody,
@@ -9,18 +10,19 @@ import {
 import { CategoriaService } from '../application/categoria.service';
 import { CreateCategoriaDto } from '../application/dto/create-categoria.dto';
 import { UpdateCategoriaDto } from '../application/dto/update-categoria.dto';
+import { CurrentUser } from '../../../auth/decorators/current-user.decorator';
 
 @ApiTags('Categorias')
+@UseGuards(AuthGuard('jwt'))
 @Controller('categorias')
 export class CategoriaController {
   constructor(private readonly service: CategoriaService) {}
 
   @Get()
   @ApiOperation({ summary: 'Listar categorias de uma assistência' })
-  @ApiQuery({ name: 'assistenciaId', type: String, description: 'UUID da assistência' })
   @ApiResponse({ status: 200, description: 'Lista de categorias retornada com sucesso' })
-  findAll(@Query('assistenciaId') assistenciaId: string) {
-    return this.service.findAll(assistenciaId);
+  findAll(@CurrentUser() user: any) {
+    return this.service.findAll(user.assistenciaId);
   }
 
   @Get(':id')
