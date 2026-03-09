@@ -1,5 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { eq } from 'drizzle-orm';
+import { DB_TOKEN } from 'src/db/database.module';
+import { funcionarios } from 'src/db/schemas/funcionarios.schema';
+import { assistencias } from 'src/db/schemas/assistencia.schema';
 import bcrypt from 'bcryptjs';
 import { FuncionarioService } from 'src/modules/funcionario/application/funcionario.service';
 import { AssistenciaService } from 'src/modules/assistencia/application/assistencia.service';
@@ -10,7 +14,8 @@ export class AuthService {
     constructor(
         private readonly userService: FuncionarioService,
         private readonly assistenciaService: AssistenciaService,
-        private readonly jwtService: JwtService    
+        private readonly jwtService: JwtService,
+        @Inject(DB_TOKEN) private readonly db: any
     ) {}
 
     async validateUser(email: string, password: string, assistencia_id: string) {
@@ -48,5 +53,23 @@ export class AuthService {
         const token = await this.login(user)
 
         return token
+    }
+
+    async getProfile(userId: string) {
+        const idToSearch = userId
+
+        const data = await this.db.query.funcionarios.findFirst({
+            where: (f, { eq }) => eq(f.id, idToSearch),
+            with: {
+                assistencia: true
+            }
+        });
+
+        if (!data) {
+            return null;
+        }
+        const { senha, ...funcionario } = data;
+
+        return funcionario;
     }
 }

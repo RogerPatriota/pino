@@ -7,12 +7,14 @@ import { AuthController } from './auth.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategy/jwt.strategy';
 import { AssistenciaModule } from 'src/modules/assistencia/assistencia.module';
+import { DatabaseModule } from 'src/db/database.module';
 
 @Module({
   imports: [
     FuncionarioModule, 
     AssistenciaModule,
     PassportModule,
+    DatabaseModule,
     JwtModule.registerAsync({
       useFactory: async () => ({
         secret: process.env.JWT_TOKEN,
