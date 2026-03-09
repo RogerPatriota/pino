@@ -19,12 +19,14 @@ import {
   ApiParam,
   ApiQuery,
   ApiBody,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 import { ClienteService } from '../application/cliente.service';
 import { CreateClienteDto } from '../application/dto/create-cliente.dto';
 import { UpdateClienteDto } from '../application/dto/update-cliente.dto';
 import { CurrentUser } from '../../../auth/decorators/current-user.decorator';
 
+@ApiBearerAuth()
 @ApiTags('Clientes')
 @UseGuards(AuthGuard('jwt'))
 @Controller('clientes')

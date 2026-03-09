@@ -19,12 +19,14 @@ import {
   ApiParam,
   ApiQuery,
   ApiBody,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 import { ServicoService } from '../application/servico.service';
 import { CreateServicoDto } from '../application/dto/create-servico.dto';
 import { UpdateServicoDto } from '../application/dto/update-servico.dto';
 import { CurrentUser } from '../../../auth/decorators/current-user.decorator';
 
+@ApiBearerAuth()
 @ApiTags('Serviços')
 @UseGuards(AuthGuard('jwt'))
 @Controller('servicos')

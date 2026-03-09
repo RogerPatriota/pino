@@ -6,12 +6,13 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import {
   ApiTags, ApiOperation, ApiResponse,
-  ApiQuery, ApiBody,
+  ApiQuery, ApiBody, ApiBearerAuth,
 } from '@nestjs/swagger';
 import { EstoqueService } from '../application/estoque.service';
 import { CreateMovimentacaoDto } from '../application/dto/create-movimentacao.dto';
 import { CurrentUser } from '../../../auth/decorators/current-user.decorator';
 
+@ApiBearerAuth()
 @ApiTags('Estoque')
 @UseGuards(AuthGuard('jwt'))
 @Controller('estoque')

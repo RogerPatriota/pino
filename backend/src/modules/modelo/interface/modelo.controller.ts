@@ -19,12 +19,14 @@ import {
   ApiParam,
   ApiQuery,
   ApiBody,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 import { ModeloService } from '../application/modelo.service';
 import { CreateModeloDto } from '../application/dto/create-modelo.dto';
 import { UpdateModeloDto } from '../application/dto/update-modelo.dto';
 import { CurrentUser } from '../../../auth/decorators/current-user.decorator';
 
+@ApiBearerAuth()
 @ApiTags('Modelos')
 @UseGuards(AuthGuard('jwt'))
 @Controller('modelos')

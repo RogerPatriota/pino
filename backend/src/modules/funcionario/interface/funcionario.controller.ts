@@ -19,12 +19,14 @@ import {
   ApiParam,
   ApiQuery,
   ApiBody,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 import { FuncionarioService } from '../application/funcionario.service';
 import { CreateFuncionarioDto } from '../application/dto/create-funcionario.dto';
 import { UpdateFuncionarioDto } from '../application/dto/update-funcionario.dto';
 import { CurrentUser } from '../../../auth/decorators/current-user.decorator';
 
+@ApiBearerAuth()
 @ApiTags('Funcionários')
 @UseGuards(AuthGuard('jwt'))
 @Controller('funcionarios')

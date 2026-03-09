@@ -19,12 +19,14 @@ import {
   ApiParam,
   ApiQuery,
   ApiBody,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 import { LogAparelhoService } from '../application/log-aparelho.service';
 import { CreateLogAparelhoDto } from '../application/dto/create-log-aparelho.dto';
 import { UpdateLogAparelhoDto } from '../application/dto/update-log-aparelho.dto';
 import { CurrentUser } from '../../../auth/decorators/current-user.decorator';
 
+@ApiBearerAuth()
 @ApiTags('Log Aparelhos')
 @UseGuards(AuthGuard('jwt'))
 @Controller('log-aparelhos')

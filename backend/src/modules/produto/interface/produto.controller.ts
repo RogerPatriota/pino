@@ -5,13 +5,14 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import {
   ApiTags, ApiOperation, ApiResponse,
-  ApiParam, ApiQuery, ApiBody,
+  ApiParam, ApiQuery, ApiBody, ApiBearerAuth,
 } from '@nestjs/swagger';
 import { ProdutoService } from '../application/produto.service';
 import { CreateProdutoDto } from '../application/dto/create-produto.dto';
 import { UpdateProdutoDto } from '../application/dto/update-produto.dto';
 import { CurrentUser } from '../../../auth/decorators/current-user.decorator';
 
+@ApiBearerAuth()
 @ApiTags('Produtos')
 @UseGuards(AuthGuard('jwt'))
 @Controller('produtos')

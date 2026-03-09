@@ -5,13 +5,14 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import {
   ApiTags, ApiOperation, ApiResponse,
-  ApiParam, ApiQuery, ApiBody,
+  ApiParam, ApiQuery, ApiBody, ApiBearerAuth,
 } from '@nestjs/swagger';
 import { OsService } from '../application/os.service';
 import { CreateOsDto } from '../application/dto/create-os.dto';
 import { UpdateOsStatusDto } from '../application/dto/update-os-status.dto';
 import { CurrentUser } from '../../../auth/decorators/current-user.decorator';
 
+@ApiBearerAuth()
 @ApiTags('Ordens de Serviço')
 @UseGuards(AuthGuard('jwt'))
 @Controller('os')
