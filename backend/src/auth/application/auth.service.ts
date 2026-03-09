@@ -1,12 +1,15 @@
 import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import bcrypt from 'bcryptjs';
 import { FuncionarioService } from 'src/modules/funcionario/application/funcionario.service';
-import { JwtService } from '@nestjs/jwt';
+import { AssistenciaService } from 'src/modules/assistencia/application/assistencia.service';
+import { RegisterDto } from './DTO/register.dto';
 
 @Injectable()
 export class AuthService {
     constructor(
         private readonly userService: FuncionarioService,
+        private readonly assistenciaService: AssistenciaService,
         private readonly jwtService: JwtService    
     ) {}
 
@@ -26,5 +29,24 @@ export class AuthService {
         return {
             access_token: this.jwtService.sign(payload),
         };
+    }
+
+    async register(data: RegisterDto) {
+        const assistencia = await this.assistenciaService.create(data.assistencia)
+        if (!assistencia) {
+            throw new Error('Erro ao criar assistência')
+        }
+
+        const user = await this.userService.create({
+            assistenciaId: assistencia.id,
+            ...data.funcionario
+        })
+        if (!user) {
+            throw new Error('Erro ao criar usuário')
+        }
+
+        const token = await this.login(user)
+
+        return token
     }
 }

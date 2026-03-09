@@ -6,10 +6,12 @@ import { LocalStrategy } from './strategy/local.strategy';
 import { AuthController } from './auth.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategy/jwt.strategy';
+import { AssistenciaModule } from 'src/modules/assistencia/assistencia.module';
 
 @Module({
   imports: [
     FuncionarioModule, 
+    AssistenciaModule,
     PassportModule,
     JwtModule.registerAsync({
       useFactory: async () => ({

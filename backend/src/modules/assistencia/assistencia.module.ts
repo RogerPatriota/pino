@@ -15,6 +15,7 @@ import { SharedModule } from '../../shared/shared.module';
     },
     AssistenciaService,
   ],
+  exports: [AssistenciaService]
 })
 export class AssistenciaModule {}
 
