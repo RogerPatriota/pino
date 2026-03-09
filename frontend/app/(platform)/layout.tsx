@@ -11,10 +11,10 @@ export default function PlatformLayout({
         <SidebarProvider defaultOpen={true}>
             <SideBar />
             <SidebarInset>
-                <main>
+                <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
                     <Navbar />
                     {children}
-                </main>
+                </div>
             </SidebarInset>
         </SidebarProvider>
     )
