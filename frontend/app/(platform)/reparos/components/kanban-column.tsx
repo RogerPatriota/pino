@@ -3,6 +3,7 @@ import { KanbanCard } from "./kanban-card"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Droppable } from "@hello-pangea/dnd"
 
 interface KanbanColumnProps {
   title: string;
@@ -48,16 +49,25 @@ export function KanbanColumn({ title, status, orders }: KanbanColumnProps) {
       </div>
 
       <ScrollArea className="flex-1 p-3">
-        <div className="min-h-full">
-          {orders.map((order) => (
-            <KanbanCard key={order.id} order={order} />
-          ))}
-          {orders.length === 0 && (
-            <div className="h-24 flex items-center justify-center text-sm text-zinc-400 border-2 border-dashed border-zinc-200 dark:border-zinc-800 rounded-lg">
-              Sem ordens
+        <Droppable droppableId={status}>
+          {(provided, snapshot) => (
+            <div 
+              className="min-h-full"
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              {orders.map((order, index) => (
+                <KanbanCard key={order.id} order={order} index={index} />
+              ))}
+              {provided.placeholder}
+              {orders.length === 0 && !snapshot.isDraggingOver && (
+                <div className="h-24 flex items-center justify-center text-sm text-zinc-400 border-2 border-dashed border-zinc-200 dark:border-zinc-800 rounded-lg">
+                  Sem ordens
+                </div>
+              )}
             </div>
           )}
-        </div>
+        </Droppable>
       </ScrollArea>
     </div>
   )
